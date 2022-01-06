@@ -431,6 +431,12 @@ func DialTimeoutWithTLS(network, address string, tlsConfig *tls.Config, timeout 
 	return client.Dial(address)
 }
 
+// DialCustom acts like Dial but allows the dialer and tlsconfig to be specified
+func DialCustom(network, address string, tlsConfig *tls.Config, dialer *net.Dialer) (conn *Conn, err error) {
+	client := Client {Net: network, Dialer: dialer, TLSConfig: tlsConfig}
+	return client.Dial(address)
+}
+
 // ExchangeContext acts like Exchange, but honors the deadline on the provided
 // context, if present. If there is both a context deadline and a configured
 // timeout on the client, the earliest of the two takes effect.
